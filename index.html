@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://t3.ftcdn.net/jpg/06/51/49/90/240_F_651499051_tQQimfoC1v8z8cD7m0mQjXElxJrMFppt.jpg'); /* Background image URL */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Keeps the background fixed in place */
+            color: #fff;
+        }
+        header {
+            background-color: rgba(44, 62, 80, 0.8); /* semi-transparent background */
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            padding: 12px 25px;
+            text-decoration: none;
+            background: #3498db;
+            border-radius: 5px;
+            margin: 0 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background: #2980b9;
+        }
+        .section {
+            display: none;
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease-in-out;
+        }
+        .section.active {
+            display: block;
+            opacity: 1;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        form label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        form input, form select, form button {
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        form input:focus, form select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+            outline: none;
+        }
+        form button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s, transform 0.2s;
+        }
+        form button:hover {
+            background: #2980b9;
+            transform: scale(1.05);
+        }
+        form button:active {
+            background: #1c5981;
+        }
+        .success, .error {
+            display: none;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .success {
+            background: #27ae60;
+        }
+        .error {
+            background: #e74c3c;
+        }
+        .image-banner {
+            width: 100%;
+            height: 250px;
+            background: url('https://img.freepik.com/free-vector/flat-design-fitness-twitter-header_23-2149242345.jpg?size=626&ext=jpg') no-repeat center center;
+            background-size: cover;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .package-option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .package-option input {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gym Management System</h1>
+    </header>
+    <div class="container">
+        <div class="image-banner"></div>
+
+        <nav>
+            <a href="#" onclick="showSection('packages')">Packages</a>
+            <a href="#" onclick="showSection('payments')">Payments</a>
+            <a href="#" onclick="showSection('membership')">Membership Details</a>
+            <a href="#" onclick="showSection('about')">About Us</a>
+            <a href="#" onclick="showSection('contact')">Contact</a>
+            <a href="#" onclick="showSection('franchise')">Franchise Enquiry</a>
+        </nav>
+
+        <!-- Packages Section -->
+        <div id="packages" class="section">
+            <h2>Choose a Package</h2>
+            <form id="package-form">
+                <div class="package-option">
+                    <input type="radio" id="basic" name="package" value="Basic" required>
+                    <label for="basic">Basic Package - $30/month</label>
+                </div>
+                <div class="package-option">
+                    <input type="radio" id="premium" name="package" value="Premium" required>
+                    <label for="premium">Premium Package - $50/month</label>
+                </div>
+                <div class="package-option">
+                    <input type="radio" id="vip" name="package" value="VIP" required>
+                    <label for="vip">VIP Package - $70/month</label>
+                </div>
+                <button type="button" onclick="showUserDetails()">Select Package</button>
+            </form>
+        </div>
+
+        <!-- Payments Section -->
+        <div id="payments" class="section">
+            <h2>Process Payments</h2>
+            <form>
+                <label for="member-id">Member ID:</label>
+                <input type="text" id="member-id" name="member-id" required>
+
+                <label for="payment-amount">Amount ($):</label>
+                <input type="number" id="payment-amount" name="payment-amount" required>
+
+                <label for="payment-date">Payment Date:</label>
+                <input type="date" id="payment-date" name="payment-date" required>
+
+                <button type="submit">Process Payment</button>
+            </form>
+        </div>
+
+        <!-- Membership Details Section -->
+        <div id="membership" class="section">
+            <h2>Enter Membership Details</h2>
+            <form id="membership-form">
+                <label for="member-name">Member Name:</label>
+                <input type="text" id="member-name" name="member-name" required>
+
+                <label for="member-email">Email:</label>
+                <input type="email" id="member-email" name="member-email" required>
+
+                <label for="member-package">Selected Package:</label>
+                <input type="text" id="member-package" name="member-package" readonly>
+
+                <label for="member-start-date">Start Date:</label>
+                <input type="date" id="member-start-date" name="member-start-date" required>
+
+                <button type="submit">Add Membership</button>
+            </form>
+        </div>
+
+        <!-- About Us Section -->
+        <div id="about" class="section">
+            <h2>About Us</h2>
+            <p style="color:#000000;">
+About Us</br>
+
+**Welcome to LEO GYM!**</br>
+
+At LEO GYM, our mission is to inspire and empower individuals to lead healthier, more active lives. We are a modern fitness facility dedicated to providing a supportive and motivating environment where everyone can achieve their personal fitness goals.</br>
+
+**Who We Are**</br>
+
+Founded in 2020, LEO GYM is more than just a gym; it's a community of fitness enthusiasts who are passionate about helping each other succeed. Our team of certified trainers and fitness professionals brings a wealth of experience and expertise to guide you on your fitness journey. We believe that fitness should be accessible to everyone, and we strive to create a welcoming atmosphere for individuals of all ages and fitness levels.</br>
+
+**Our Facilities**</br>
+
+We offer a state-of-the-art facility equipped with the latest fitness technology and equipment. Whether you're interested in strength training, cardio workouts, group classes, or personal training, we have everything you need to stay motivated and achieve your goals. Our clean and spacious workout areas are designed to provide a comfortable and enjoyable experience for all our members.</br>
+
+**What Sets Us Apart**</br>
+
+1. **Personalized Training Programs:** Our experienced trainers work with you to create a customized fitness plan tailored to your specific needs and goals. We take the time to understand your preferences and limitations to ensure you get the most out of every workout.</br>
+
+2. **Variety of Classes:** From high-energy group fitness classes to relaxing yoga sessions, we offer a diverse range of classes to suit all interests and fitness levels. Our classes are led by enthusiastic instructors who are committed to making your workout both effective and enjoyable.</br>
+
+3. **Community and Support:** At LEO GYM, you're not just a member; you're part of a supportive community. We organize regular events, challenges, and social activities to keep you engaged and motivated. Our friendly staff and fellow members are always here to encourage and support you.</br>
+
+4. **Commitment to Excellence:** We are dedicated to maintaining the highest standards of cleanliness, safety, and customer service. Our facility is regularly cleaned and sanitized to ensure a safe and hygienic environment for everyone.</br>
+
+**Our Vision**</br>
+
+Our vision is to be the leading fitness center in the community, known for our commitment to excellence and our ability to inspire positive change in the lives of our members. We are constantly evolving to meet the needs of our members and stay ahead of the latest fitness trends.</br>
+
+**Join Us Today!**</br>
+
+Whether you're looking to get fit, stay active, or just have fun, LEO GYM is the perfect place to start. We invite you to come and experience our gym for yourself. Sign up for a free trial today and discover how we can help you reach your fitness goals!</br>
+
+**Contact Us**</br>
+
+For more information about our services, membership options, or to schedule a tour of our facility, please don't hesitate to reach out. We look forward to welcoming you to LEO GYM!</br>
+
+**LEO GYM**</br>
+23,dubai kurukku sandhu</br>
+987987987</br>
+leo@gmail.com</br>
+leogym.in</br>
+</p>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="section">
+            <h2>Contact Us</h2>
+            <form>
+                <label for="contact-name">Name:</label>
+                <input type="text" id="contact-name" name="contact-name" required>
+
+                <label for="contact-email">Email:</label>
+                <input type="email" id="contact-email" name="contact-email" required>
+
+                <label for="contact-message">Message:</label>
+                <textarea id="contact-message" name="contact-message" rows="4" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Franchise Enquiry Section -->
+        <div id="franchise" class="section">
+            <h2>Franchise Enquiry</h2>
+            <p>If you are interested in becoming a franchisee, please fill out the form below. We will get back to you with more details about the franchising process.</p>
+            <form>
+                <label for="franchise-name">Your Name:</label>
+                <input type="text" id="franchise-name" name="franchise-name" required>
+
+                <label for="franchise-email">Email:</label>
+                <input type="email" id="franchise-email" name="franchise-email" required>
+
+                <label for="franchise-phone">Phone Number:</label>
+                <input type="tel" id="franchise-phone" name="franchise-phone" required>
+
+                <label for="franchise-message">Message:</label>
+                <textarea id="franchise-message" name="franchise-message" rows="4" required></textarea>
+
+                <button type="submit">Submit Enquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show the clicked section
+            const sectionToShow = document.getElementById(sectionId);
+            if (sectionToShow) {
+                sectionToShow.classList.add('active');
+            }
+        }
+
+        function showUserDetails() {
+            const selectedPackage = document.querySelector('input[name="package"]:checked');
+            if (selectedPackage) {
+                // Hide the Packages section and show the Membership Details section
+                showSection('membership');
+
+                // Set the selected package in the Membership Details form
+                document.getElementById('member-package').value = selectedPackage.value;
+            } else {
+                alert('Please select a package.');
+            }
+        }
+
+        // Show the default section (Packages) on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('packages');
+        });
+    </script>
+</body>
+</html>
